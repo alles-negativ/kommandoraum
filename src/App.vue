@@ -1,7 +1,12 @@
 <script>
+import Light from './components/Light.vue'
+import Bar from './components/Bar.vue'
 
 export default {
-
+  components: {
+    Light,
+    Bar
+  },
   data() {
     return {
       items: 0,
@@ -17,7 +22,7 @@ export default {
         .then(response => this.items = response)
         .then(response => console.log(response))
         .catch(err => console.error(err));
-    },
+    }
   },
   computed: {
     getLights() {
@@ -26,33 +31,33 @@ export default {
       const result = items.filter(item => item.label.match(regex));
       console.log(result);
       return (result);
-    }
+    },
+    getBars() {
+      const regex = new RegExp(/bar/);
+      const items = this.items;
+      const result = items.filter(item => item.label.match(regex));
+      console.log(result);
+      return (result);
+    },
   },
   mounted() {
-    this.getItems()
+    this.getItems();
   },
   created(){
     this.interval = setInterval(() =>{
-      this.getItems()}, 5000)
+      this.getItems()}, 1000)
   }
 }
 </script>
 
 <template>
-  <div v-for="item in items" :key="item">
-    <p>{{ item.name }}</p>
-    <p 
-      class="bar" 
-      :style="{width: item.state.replace(/[^\d.-]/g, '') * 50 + 'px', transition: 0.5 + 's'}"
-    >
-      {{ item.state }}
-    </p> 
-    <p 
-      class="tags">
-      {{ item.label }}
-    </p>
+  <div class="itemlist" v-for="item in items" :key="item">
+    {{ item.name }}
   </div>
-  <div>{{ getLights }}</div>
+  <div class="wrapper">
+    <Light :lights="getLights"/>
+    <Bar :bars="getBars"/>
+  </div>
 </template>
 
 <style scoped>
@@ -64,18 +69,9 @@ p {
   margin-right: 10px;
 }
 
-.state {
-  color: blue;
-}
-
-.tags {
-  color: red;
-}
-
-.bar {
-  display: block;
-  height: 20px;
-  background-color: blue;
+.itemlist {
+  margin: 0px;
+  font-size: 10px;
 }
 
 </style>
