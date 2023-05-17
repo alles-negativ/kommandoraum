@@ -10,7 +10,18 @@ export default {
   data() {
     return {
       items: 0,
-      interval: null
+      interval: null,
+      items: {
+        lamp: [
+          { name: "lamp1", state: "OFF" },
+          { name: "lamp2", state: "OFF" },
+        ],
+        measuring: [
+          { name: "measuring1", state: 0 },
+          { name: "measuring2", state: 0 },
+        ],
+      },
+      sounds: new Audio(new URL('./assets/boom.mp3', import.meta.url).href)
     }
   },
   methods: {
@@ -27,12 +38,16 @@ export default {
     changeState($event, itemName, state){
       const options = {method: 'POST', headers: {'Content-Type': 'text/plain'}, body: state};
 
-    fetch('http://10.0.1.4:8080/rest/items/'+ itemName, options)
-      // .then(response => response.json())
-      .then(response => console.log(response))
-      .catch(err => console.error(err));
+      fetch('http://10.0.1.4:8080/rest/items/'+ itemName, options)
+        // .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(err => console.error(err));
 
-      }
+    },
+    runState1() {
+      console.log("state 1")
+      this.sounds.play()
+    }
   },
   // computed: {
   //   getLights() {
@@ -72,6 +87,13 @@ export default {
     <Light :lights="getLights"/>
     <Bar :bars="getBars"/>
   </div> -->
+  <div class="container__state">
+    <div class="state" @click="runState1">1</div>
+    <div class="state" @click="runState2">2</div>
+    <div class="state" @click="runState3">3</div>
+    <div class="state" @click="runState4">4</div>
+    <div class="state" @click="runState5">5</div>
+  </div>
 </template>
 
 <style scoped>
@@ -86,6 +108,18 @@ p {
 .itemlist {
   margin: 0px;
   font-size: 10px;
+}
+
+.container__state {
+  display: flex;
+}
+
+.state {
+  height: 100px;
+  width: 100px;
+  margin: 10px;
+  background: white;
+  color: black;
 }
 
 </style>
