@@ -196,12 +196,131 @@ export default {
       console.log("state 1")
       this.changeState(null, "sounditem_1", Math.random(100))
       console.log(null, this.item_list.measuring[0])
-      this.changeState(null, this.item_list.measuring[0].name, "50")
-      await this.delay(3000);
-      this.changeState(null, this.item_list.measuring[1].name, "50")
+      this.changeState(null, this.item_list.measuring[0].name, Math.floor(Math.random() * 80)+20)
+      this.changeState(null, this.item_list.lamp[8].name, "ON")
+      await this.delay(Math.floor(Math.random() * 400)+200);
+      this.changeState(null, this.item_list.measuring[1].name, Math.floor(Math.random() * 80)+20)
+      await this.delay(Math.floor(Math.random() * 300)+100);
+      this.changeState(null, this.item_list.measuring[22].name, Math.floor(Math.random() * 80)+20)
+      await this.delay(Math.floor(Math.random() * 4000)+2000);
+      this.changeState(null, this.item_list.measuring[15].name, Math.floor(Math.random() * 80)+20)
+      this.changeState(null, this.item_list.measuring[6].name, Math.floor(Math.random() * 80)+20)
+      await this.delay(Math.floor(Math.random() * 6000)+5000);
+      this.changeState(null, this.item_list.lamp[4].name, "ON")
+      
     },
     async runState2() {
-      console.log("state 2")
+      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, this.item_list.lamp[0].name, "ON")
+      await this.delay(Math.floor(Math.random() * 600)+500);
+      this.changeState(null, this.item_list.measuring[2].name, Math.floor(Math.random() * 80)+20)
+      this.changeState(null, this.item_list.measuring[20].name, Math.floor(Math.random() * 80)+20)
+      await this.delay(Math.floor(Math.random() * 1000)+500);
+      this.changeState(null, this.item_list.measuring[14].name, Math.floor(Math.random() * 80)+20)
+      this.changeState(null, this.item_list.lamp[6].name, "ON")
+      this.changeState(null, this.item_list.measuring[7].name, Math.floor(Math.random() * 80)+20)
+      await this.delay(Math.floor(Math.random() * 3000)+500);
+      this.changeState(null, this.item_list.measuring[21].name, Math.floor(Math.random() * 80)+20)
+    },
+    async runState3() {
+      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, this.item_list.lamp[7].name, "ON")
+      await this.delay(Math.floor(Math.random() * 600)+100);
+      this.changeState(null, this.item_list.measuring[18].name, Math.floor(Math.random() * 80)+20)
+      this.changeState(null, this.item_list.measuring[8].name, Math.floor(Math.random() * 80)+20)
+      await this.delay(Math.floor(Math.random() * 1300)+100);
+      this.changeState(null, this.item_list.measuring[13].name, Math.floor(Math.random() * 80)+20)
+      this.changeState(null, this.item_list.lamp[1].name, "ON")
+      await this.delay(Math.floor(Math.random() * 3000)+100);
+      this.changeState(null, this.item_list.measuring[3].name, Math.floor(Math.random() * 80)+20)
+      this.changeState(null, this.item_list.measuring[23].name, Math.floor(Math.random() * 80)+20)
+    },
+    async runState4() {
+      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, this.item_list.lamp[3].name, "ON")
+      this.changeState(null, this.item_list.measuring[19].name, Math.floor(Math.random() * 80)+20)
+      await this.delay(Math.floor(Math.random() * 600)+100);
+      this.changeState(null, this.item_list.measuring[9].name, Math.floor(Math.random() * 80)+20)
+      this.changeState(null, this.item_list.measuring[12].name, Math.floor(Math.random() * 80)+20)
+      this.changeState(null, this.item_list.lamp[9].name, "ON")
+      await this.delay(Math.floor(Math.random() * 600)+100);
+      this.changeState(null, this.item_list.measuring[16].name, Math.floor(Math.random() * 80)+20)
+      await this.delay(Math.floor(Math.random() * 600)+100);
+      this.changeState(null, this.item_list.measuring[4].name, Math.floor(Math.random() * 80)+20)
+    },
+    async runState5() {
+      //actual state 5
+      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, this.item_list.lamp[5].name, "ON")
+      await this.delay(Math.floor(Math.random() * 600)+100);
+      this.changeState(null, this.item_list.measuring[11].name, Math.floor(Math.random() * 80)+20)
+      this.changeState(null, this.item_list.lamp[2].name, "ON")
+      await this.delay(Math.floor(Math.random() * 600)+100);
+      this.changeState(null, this.item_list.measuring[17].name, Math.floor(Math.random() * 80)+20)
+      this.changeState(null, this.item_list.measuring[5].name, Math.floor(Math.random() * 80)+20)
+      await this.delay(Math.floor(Math.random() * 600)+100);
+      this.changeState(null, this.item_list.measuring[10].name, Math.floor(Math.random() * 80)+20)
+
+      // //IN TO OUT
+      // //schrank 5 (links)
+      // this.changeState(null, "sounditem_1", Math.random(100))
+      // this.changeState(null, this.item_list.lamp[9].name, "ON")
+      // this.changeState(null, this.item_list.measuring[10].name, "100")
+      // this.changeState(null, this.item_list.measuring[11].name, "100")
+      // this.changeState(null, this.item_list.measuring[12].name, "100")
+      
+      // //schrank 5 (rechts)
+      // this.changeState(null, "sounditem_1", Math.random(100))
+      // this.changeState(null, this.item_list.lamp[8].name, "ON")
+      // this.changeState(null, this.item_list.measuring[13].name, "100")
+      // this.changeState(null, this.item_list.measuring[14].name, "100")
+      // this.changeState(null, this.item_list.measuring[15].name, "100")
+      
+      // await this.delay(1750);
+      
+      // //schrank 4
+      // this.changeState(null, "sounditem_1", Math.random(100))
+      // this.changeState(null, this.item_list.measuring[8].name, "100")
+      // this.changeState(null, this.item_list.measuring[9].name, "100")
+      
+      // await this.delay(1100);
+      
+      // //schrank 2
+      // this.changeState(null, "sounditem_1", Math.random(100))
+      // this.changeState(null, this.item_list.measuring[4].name, "100")
+      // this.changeState(null, this.item_list.measuring[5].name, "100")
+      // this.changeState(null, this.item_list.measuring[6].name, "100")
+      // this.changeState(null, this.item_list.measuring[7].name, "100")
+      // //schrank 8
+      // this.changeState(null, this.item_list.measuring[16].name, "100")
+      // this.changeState(null, this.item_list.measuring[17].name, "100")
+      // this.changeState(null, this.item_list.measuring[18].name, "100")
+      // this.changeState(null, this.item_list.measuring[19].name, "100")
+      
+      // await this.delay(800);
+      
+      // //schrank 1
+      // this.changeState(null, "sounditem_1", Math.random(100))
+      // this.changeState(null, this.item_list.measuring[0].name, "100")
+      // this.changeState(null, this.item_list.measuring[1].name, "100")
+      // this.changeState(null, this.item_list.measuring[2].name, "100")
+      // this.changeState(null, this.item_list.measuring[3].name, "100")
+      // //schrank 9
+      // this.changeState(null, this.item_list.measuring[20].name, "100")
+      // this.changeState(null, this.item_list.measuring[21].name, "100")
+      // this.changeState(null, this.item_list.measuring[22].name, "100")
+      // this.changeState(null, this.item_list.measuring[23].name, "100")
+
+      // await this.delay(1000);
+      // this.changeState(null, this.item_list.lamp[0].name, "ON")
+      // this.changeState(null, this.item_list.lamp[1].name, "ON")
+      // this.changeState(null, this.item_list.lamp[2].name, "ON")
+      // this.changeState(null, this.item_list.lamp[3].name, "ON")
+      // this.changeState(null, this.item_list.lamp[4].name, "ON")
+      // this.changeState(null, this.item_list.lamp[5].name, "ON")
+      // this.changeState(null, this.item_list.lamp[6].name, "ON")
+      // this.changeState(null, this.item_list.lamp[7].name, "ON")
+      
     },
     turnAll(state) {
       if (state == 0) {
