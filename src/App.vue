@@ -11,14 +11,47 @@ export default {
     return {
       items: 0,
       interval: null,
-      items: {
+      item_list: {
         lamp: [
-          { name: "lamp1", state: "OFF" },
-          { name: "lamp2", state: "OFF" },
+          { name: "lights_1_Power_1", state: "OFF" },
+          { name: "lights_1_Power_2", state: "OFF" },
+          { name: "lights_2_Power_1", state: "OFF" },
+          { name: "lights_2_Power_2", state: "OFF" },
+          { name: "lights_3_Power_1", state: "OFF" },
+          { name: "lights_3_Power_2", state: "OFF" },
+          { name: "lights_4_Power_1", state: "OFF" },
+          { name: "lights_4_Power_2", state: "OFF" },
+          { name: "lights_schrank_5_Power_1", state: "OFF" },
+          { name: "lights_schrank_5_Power_2", state: "OFF" },
+        ],
+        singularity: [
+          { name: "light_singularity_online_Power", state: "OFF" },
         ],
         measuring: [
-          { name: "measuring1", state: 0 },
-          { name: "measuring2", state: 0 },
+          { name: "schrank1_Brightness_1", state: 0 },
+          { name: "schrank1_Brightness_2", state: 0 },
+          { name: "schrank1_Brightness_3", state: 0 },
+          { name: "schrank1_Brightness_4", state: 0 },
+          { name: "schrank_2_Brightness_1", state: 0 },
+          { name: "schrank_2_Brightness_2", state: 0 },
+          { name: "schrank_2_Brightness_3", state: 0 },
+          { name: "schrank_2_Brightness_4", state: 0 },
+          { name: "schrank_4_5_Brightness_1", state: 0 },
+          { name: "schrank_4_5_Brightness_2", state: 0 },
+          { name: "schrank_4_5_Brightness_3", state: 0 },
+          { name: "schrank_4_5_Brightness_4", state: 0 },
+          { name: "schrank_5_Brightness_1", state: 0 },
+          { name: "schrank_5_Brightness_2", state: 0 },
+          { name: "schrank_5_Brightness_3", state: 0 },
+          { name: "schrank_5_Brightness_4", state: 0 },
+          { name: "schrank_8_Brightness_1", state: 0 },
+          { name: "schrank_8_Brightness_2", state: 0 },
+          { name: "schrank_8_Brightness_3", state: 0 },
+          { name: "schrank_8_Brightness_4", state: 0 },
+          { name: "schrank_9_Brightness_1", state: 0 },
+          { name: "schrank_9_Brightness_2", state: 0 },
+          { name: "schrank_9_Brightness_3", state: 0 },
+          { name: "schrank_9_Brightness_4", state: 0 },
         ],
       },
       sounds: new Audio(new URL('./assets/boom.mp3', import.meta.url).href)
@@ -28,8 +61,7 @@ export default {
     getItems() {
       const options = { method: 'GET'};
       
-
-      fetch('http://10.0.1.4:8080/rest/items', options)
+      fetch('http://10.68.254.173:8080/rest/items', options)
         .then(response => response.json())
         .then(response => this.items = response)
         .then(response => console.log(response))
@@ -38,16 +70,51 @@ export default {
     changeState($event, itemName, state){
       const options = {method: 'POST', headers: {'Content-Type': 'text/plain'}, body: state};
 
-      fetch('http://10.0.1.4:8080/rest/items/'+ itemName, options)
+      fetch('http://10.68.254.173:8080/rest/items/'+ itemName, options)
         // .then(response => response.json())
         .then(response => console.log(response))
         .catch(err => console.error(err));
 
     },
-    runState1() {
+    delay(milliseconds){
+      return new Promise(resolve => {
+          setTimeout(resolve, milliseconds)
+      })
+    },
+    async runState1() {
       console.log("state 1")
-      this.sounds.play()
-    }
+      this.changeState(null, "sounditem_1", Math.random(100))
+      console.log(null, this.item_list.measuring[0])
+      this.changeState(null, this.item_list.measuring[0].name, "50")
+      await this.delay(3000);
+      this.changeState(null, this.item_list.measuring[1].name, "50")
+
+
+    },
+    runState2() {
+      console.log("state 2")
+      console.log(null, this.item_list.measuring[0].name)
+    },
+    turnAll(state) {
+      if (state == 0) {
+        this.item_list.measuring.forEach((element) => {
+          this.changeState(null, element.name, "0")
+        });
+        this.item_list.lamp.forEach((element) => {
+          this.changeState(null, element.name, "OFF")
+        });
+        this.changeState(null, this.item_list.singularity[0].name, "OFF")
+      }
+      else {
+        this.item_list.measuring.forEach((element) => {
+          this.changeState(null, element.name, "100")
+        });
+        this.item_list.lamp.forEach((element) => {
+          this.changeState(null, element.name, "ON")
+        });
+        this.changeState(null, this.item_list.singularity[0].name, "ON")
+      }
+    },
   },
   // computed: {
   //   getLights() {
@@ -93,6 +160,8 @@ export default {
     <div class="state" @click="runState3">3</div>
     <div class="state" @click="runState4">4</div>
     <div class="state" @click="runState5">5</div>
+    <div class="state" @click="turnAll(0)">OFF</div>
+    <div class="state" @click="turnAll(1)">ON</div>
   </div>
 </template>
 
