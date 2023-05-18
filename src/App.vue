@@ -158,11 +158,34 @@ export default {
         <button @click='changeState($event,item.name,"ON")'>on plug</button>
         <button @click='changeState($event,item.name,"OFF")'>off plug</button>
       </div> -->
+  
+        <div class="button__state--switch">
+          <p class="switch__text">Init</p>
+          <div class="switch__colouring">
+          </div>
+        </div>
+        <div class="button__state--switch">
+          <p class="switch__text">Start</p>
+          <div 
+          class="switch__colouring"
+          :class="{ active: item_list.buttons.init }"
+          >
+          </div>
+        </div>
+        <div class="button__state--switch"></div>
+        <div class="button__state--switch"></div>
         <div class="container__onoff">
           <div class="button__small--off" @click="turnAll(0)">OFF</div>
           <div class="button__small--on" @click="turnAll(1)">ON</div>
         </div>
+
         <div class="button__state" @click="runState1">1</div>
+        <div class="button__state" @click="runState2">2</div>
+        <div class="button__state" @click="runState3">3</div>
+        <div class="button__state" @click="runState4">4</div>
+        <div class="button__state" @click="runState5">5</div>
+
+        <div class="button__state" @click="start">Start</div>
         <div class="button__state" @click="runState2">2</div>
         <div class="button__state" @click="runState3">3</div>
         <div class="button__state" @click="runState4">4</div>
