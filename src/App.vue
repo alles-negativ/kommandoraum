@@ -50,6 +50,7 @@ export default {
         buttons: {
           init: false,
           start: false,
+          voltage: 0,
         }
       },
       sounds: new Audio(new URL('./assets/boom.mp3', import.meta.url).href)
@@ -73,21 +74,79 @@ export default {
         .then(response => {
           let value = parseInt(response.state.slice(0, -2))
           if (value >= 14) {
-            this.item_list.buttons.init = true
-            this.item_list.buttons.start = true
+            if (this.item_list.buttons.voltage >= 14) {
+              this.item_list.buttons.init = this.item_list.buttons.init
+              this.item_list.buttons.start = this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 13) {
+              this.item_list.buttons.init = !this.item_list.buttons.init
+              this.item_list.buttons.start = this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 8) {
+              this.item_list.buttons.init = this.item_list.buttons.init
+              this.item_list.buttons.start = !this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 6) {
+              this.item_list.buttons.init = !this.item_list.buttons.init
+              this.item_list.buttons.start = !this.item_list.buttons.start
+            }
           }
           else if (value >= 13) {
-            this.item_list.buttons.init = false
-            this.item_list.buttons.start = true
+            if (this.item_list.buttons.voltage >= 14) {
+              this.item_list.buttons.init = !this.item_list.buttons.init
+              this.item_list.buttons.start = this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 13) {
+              this.item_list.buttons.init = this.item_list.buttons.init
+              this.item_list.buttons.start = this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 8) {
+              this.item_list.buttons.init = !this.item_list.buttons.init
+              this.item_list.buttons.start = !this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 6) {
+              this.item_list.buttons.init = this.item_list.buttons.init
+              this.item_list.buttons.start = !this.item_list.buttons.start
+            }
           }
           else if (value >= 8) {
-            this.item_list.buttons.init = true
-            this.item_list.buttons.start = false
+            if (this.item_list.buttons.voltage >= 14) {
+              this.item_list.buttons.init = this.item_list.buttons.init
+              this.item_list.buttons.start = !this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 13) {
+              this.item_list.buttons.init = !this.item_list.buttons.init
+              this.item_list.buttons.start = !this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 8) {
+              this.item_list.buttons.init = this.item_list.buttons.init
+              this.item_list.buttons.start = this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 6) {
+              this.item_list.buttons.init = !this.item_list.buttons.init
+              this.item_list.buttons.start = this.item_list.buttons.start
+            }
           }
           else {
-            this.item_list.buttons.init = false
-            this.item_list.buttons.start = false
+            if (this.item_list.buttons.voltage >= 14) {
+              this.item_list.buttons.init = !this.item_list.buttons.init
+              this.item_list.buttons.start = !this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 13) {
+              this.item_list.buttons.init = this.item_list.buttons.init
+              this.item_list.buttons.start = !this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 8) {
+              this.item_list.buttons.init = !this.item_list.buttons.init
+              this.item_list.buttons.start = this.item_list.buttons.start
+            }
+            else if (this.item_list.buttons.voltage >= 6) {
+              this.item_list.buttons.init = this.item_list.buttons.init
+              this.item_list.buttons.start = this.item_list.buttons.start
+            }
           }
+          // overwrite old voltage with new value
+          this.item_list.buttons.voltage = value
           console.log(this.item_list.buttons)
         })
         .catch(err => console.error(err));
@@ -137,13 +196,17 @@ export default {
         this.changeState(null, this.item_list.singularity[0].name, "ON")
       }
     },
+    start() {
+      this.item_list.buttons.init = false
+      this.item_list.buttons.start = false
+    }
   },
   mounted() {
     this.getItems();
   },
   created(){
     this.interval = setInterval(() =>{
-      this.getButtons()}, 1000)
+      this.getButtons()}, 100)
   }
 }
 </script>
