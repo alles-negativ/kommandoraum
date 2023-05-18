@@ -201,17 +201,21 @@ export default {
       }
     },
     start() {
-      this.item_list.buttons.init = false
-      this.item_list.buttons.start = false
-
-      this.time.interval = setInterval(() => {
+      if (this.timer.interval == 0) {
+        // reset switches
+        this.item_list.buttons.init = false
+        this.item_list.buttons.start = false
+        // start the timer
+        this.timer.interval = setInterval(() => {
         if (this.timer.time === 0) {
           this.timer.time = 60
-          clearInterval(this.time.interval)
+          clearInterval(this.timer.interval)
+          this.timer.interval = 0
         } else {
           this.timer.time--
         }             
       }, 1000)
+      }
     }
   },
   mounted() {
