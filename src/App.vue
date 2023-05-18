@@ -62,9 +62,9 @@ export default {
         },
       },
       timer: {
-        time: 20,
+        time: 60,
         interval: 0,
-        reset: 20,
+        reset: 60,
       },
       doomsdayStatus: false,
       randomStatus: false,
@@ -247,7 +247,7 @@ export default {
       this.changeState(null, this.item_list.measuring[23].name, Math.floor(Math.random() * 80)+20)
     },
     async runState4() {
-      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, "sounditem_4", Math.random(100))
       this.changeState(null, this.item_list.lamp[3].name, "ON")
       this.changeState(null, this.item_list.measuring[19].name, Math.floor(Math.random() * 80)+20)
       await this.delay(Math.floor(Math.random() * 600)+100);
@@ -261,7 +261,7 @@ export default {
     },
     async runState5() {
       //actual state 5
-      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, "sounditem_5", Math.random(100))
       this.changeState(null, this.item_list.lamp[5].name, "ON")
       await this.delay(Math.floor(Math.random() * 600)+100);
       this.changeState(null, this.item_list.measuring[11].name, Math.floor(Math.random() * 80)+20)
