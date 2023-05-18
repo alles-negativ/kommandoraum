@@ -61,15 +61,6 @@ export default {
     }
   },
   methods: {
-    getItems() {
-      const options = { method: 'GET'};
-      
-      fetch('http://10.68.254.173:8080/rest/items', options)
-        .then(response => response.json())
-        .then(response => this.items = response)
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
-    },
     getButtons() {
       const options = { method: 'GET'};
       
@@ -80,78 +71,110 @@ export default {
           if (value >= 14) {
             if (this.item_list.buttons.voltage >= 14) {
               this.item_list.buttons.init = this.item_list.buttons.init
-              this.item_list.buttons.start = this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 13) {
               this.item_list.buttons.init = !this.item_list.buttons.init
-              this.item_list.buttons.start = this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 8) {
               this.item_list.buttons.init = this.item_list.buttons.init
-              this.item_list.buttons.start = !this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = !this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 6) {
               this.item_list.buttons.init = !this.item_list.buttons.init
-              this.item_list.buttons.start = !this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = !this.item_list.buttons.start
+              }
             }
           }
           else if (value >= 13) {
             if (this.item_list.buttons.voltage >= 14) {
               this.item_list.buttons.init = !this.item_list.buttons.init
-              this.item_list.buttons.start = this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 13) {
               this.item_list.buttons.init = this.item_list.buttons.init
-              this.item_list.buttons.start = this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 8) {
               this.item_list.buttons.init = !this.item_list.buttons.init
-              this.item_list.buttons.start = !this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = !this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 6) {
               this.item_list.buttons.init = this.item_list.buttons.init
-              this.item_list.buttons.start = !this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = !this.item_list.buttons.start
+              }
             }
           }
           else if (value >= 8) {
             if (this.item_list.buttons.voltage >= 14) {
               this.item_list.buttons.init = this.item_list.buttons.init
-              this.item_list.buttons.start = !this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = !this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 13) {
               this.item_list.buttons.init = !this.item_list.buttons.init
-              this.item_list.buttons.start = !this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = !this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 8) {
               this.item_list.buttons.init = this.item_list.buttons.init
-              this.item_list.buttons.start = this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 6) {
               this.item_list.buttons.init = !this.item_list.buttons.init
-              this.item_list.buttons.start = this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = this.item_list.buttons.start
+              }
             }
           }
           else {
             if (this.item_list.buttons.voltage >= 14) {
               this.item_list.buttons.init = !this.item_list.buttons.init
-              this.item_list.buttons.start = !this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = !this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 13) {
               this.item_list.buttons.init = this.item_list.buttons.init
-              this.item_list.buttons.start = !this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = !this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 8) {
               this.item_list.buttons.init = !this.item_list.buttons.init
-              this.item_list.buttons.start = this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = this.item_list.buttons.start
+              }
             }
             else if (this.item_list.buttons.voltage >= 6) {
               this.item_list.buttons.init = this.item_list.buttons.init
-              this.item_list.buttons.start = this.item_list.buttons.start
+              if (this.item_list.buttons.init == true) {
+                this.item_list.buttons.start = this.item_list.buttons.start
+              }
             }
           }
           // overwrite old voltage with new value
           this.item_list.buttons.voltage = value
-          console.log(this.item_list.buttons)
+          // console.log(this.item_list.buttons)
         })
         .catch(err => console.error(err));
     },
@@ -219,7 +242,6 @@ export default {
     }
   },
   mounted() {
-    this.getItems();
   },
   created(){
     this.interval = setInterval(() =>{
