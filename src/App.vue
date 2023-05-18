@@ -270,7 +270,13 @@ export default {
             {{ timer.time }}
           </p>
         </div>
-        <div class="button__state--start" @click="start">Start</div>
+        <div 
+          class="button__state--start"
+          :class="{ active: timer.interval }"
+          @click="start"
+        >
+          Start {{ timer.interval }}
+        </div>
     </div>
   </div>
 </template>
