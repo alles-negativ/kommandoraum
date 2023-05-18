@@ -7,6 +7,7 @@ export default {
       interval: null,
       initiated: false,
       started: false,
+      stateStatus: [false, false, false, false, false],
       item_list: {
         lamp: [
           { name: "lights_1_Power_1", state: "OFF" },
@@ -204,7 +205,7 @@ export default {
       })
     },
     async runState1() {
-      console.log("state 1")
+      this.stateStatus[0] = true
       this.changeState(null, "sounditem_1", Math.random(100))
       // console.log(null, this.item_list.measuring[0])
       this.changeState(null, this.item_list.measuring[0].name, Math.floor(Math.random() * 80)+20)
@@ -221,6 +222,7 @@ export default {
       
     },
     async runState2() {
+      this.stateStatus[1] = true
       this.changeState(null, "sounditem_2", Math.random(100))
       this.changeState(null, this.item_list.lamp[0].name, "ON")
       await this.delay(Math.floor(Math.random() * 600)+500);
@@ -234,6 +236,7 @@ export default {
       this.changeState(null, this.item_list.measuring[21].name, Math.floor(Math.random() * 80)+20)
     },
     async runState3() {
+      this.stateStatus[2] = true
       this.changeState(null, "sounditem_3", Math.random(100))
       this.changeState(null, this.item_list.lamp[7].name, "ON")
       await this.delay(Math.floor(Math.random() * 600)+100);
@@ -247,6 +250,7 @@ export default {
       this.changeState(null, this.item_list.measuring[23].name, Math.floor(Math.random() * 80)+20)
     },
     async runState4() {
+      this.stateStatus[3] = true
       this.changeState(null, "sounditem_1", Math.random(100))
       this.changeState(null, this.item_list.lamp[3].name, "ON")
       this.changeState(null, this.item_list.measuring[19].name, Math.floor(Math.random() * 80)+20)
@@ -261,6 +265,7 @@ export default {
     },
     async runState5() {
       //actual state 5
+      this.stateStatus[4] = true
       this.changeState(null, "sounditem_1", Math.random(100))
       this.changeState(null, this.item_list.lamp[5].name, "ON")
       await this.delay(Math.floor(Math.random() * 600)+100);
@@ -274,9 +279,19 @@ export default {
     },
     async randomMode() {
       console.log("random")
-      this.item_list.measuring.forEach((element) => {
-        this.changeState(null, element.name, Math.floor(Math.random() * 80)+20)
+      let randomItems = this.item_list.measuring.sort(() => .5 - Math.random()).slice(0, 24);
+      randomItems.forEach((element) => {
+        this.changeState(null, element.name, this.scale(Math.floor(Math.random() * 200 - 100)))
       });
+    },
+    scale (number) {
+      if (number <= 0) {
+        return 0
+      }
+      else if (number >= 80) {
+        return 100
+      }
+      return number
     },
     async dramaticEnd() {
       //IN TO OUT
@@ -340,6 +355,8 @@ export default {
       //security
       this.changeState(null, this.item_list.security.elements[0].name, "ON")
       this.item_list.security.status = true
+      this.randomMode()
+      this.randomStatus = true
     },
     async initSequence() {
       this.initiated = true
@@ -372,7 +389,7 @@ export default {
         this.item_list.lamp.forEach((element) => {
           this.changeState(null, element.name, "ON")
         });
-        this.changeState(null, this.item_list.singularity[0].name, "ON")
+        // this.changeState(null, this.item_list.singularity[0].name, "ON")
       }
     },
     start() {
@@ -382,6 +399,7 @@ export default {
         this.item_list.buttons.start = false
         this.initiated = false
         this.started = false
+        this.stateStatus = [false, false, false, false, false]
         // start the timer
         this.timer.interval = setInterval(() => {
           if (this.timer.time === 0) {
@@ -481,11 +499,16 @@ export default {
           <div class="button__small--on" @click="turnAll(1)">ON</div>
         </div>
 
-        <div class="button__state" @click="runState1">1</div>
-        <div class="button__state" @click="runState2">2</div>
-        <div class="button__state" @click="runState3">3</div>
-        <div class="button__state" @click="runState4">4</div>
-        <div class="button__state" @click="runState5">5</div>
+        <div class="button__state" @click="runState1"
+          :class="{ active: this.stateStatus[0] }">1</div>
+        <div class="button__state" @click="runState2"
+          :class="{ active: this.stateStatus[1] }">2</div>
+        <div class="button__state" @click="runState3"
+          :class="{ active: this.stateStatus[2] }">3</div>
+        <div class="button__state" @click="runState4"
+          :class="{ active: this.stateStatus[3] }">4</div>
+        <div class="button__state" @click="runState5"
+          :class="{ active: this.stateStatus[4] }">5</div>
 
         <div class="button__state--security" @click="securitySwitch" 
           :class="{ active: this.item_list.security.status }">Security</div>

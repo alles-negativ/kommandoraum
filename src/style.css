@@ -41,6 +41,15 @@ body {
   border-radius: 20px;
 }
 
+.button__state.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #c700ff;
+  width: 100%;
+  border-radius: 20px;
+}
+
 .button__state--timer {
   display: flex;
   justify-content: center;
