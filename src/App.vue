@@ -5,6 +5,8 @@ export default {
     return {
       items: 0,
       interval: null,
+      initiated: false,
+      started: false,
       item_list: {
         lamp: [
           { name: "lights_1_Power_1", state: "OFF" },
@@ -60,8 +62,9 @@ export default {
         },
       },
       timer: {
-        time: 10,
+        time: 20,
         interval: 0,
+        reset: 20,
       },
       doomsdayStatus: false,
       sounds: new Audio(new URL('./assets/boom.mp3', import.meta.url).href)
@@ -267,67 +270,78 @@ export default {
       this.changeState(null, this.item_list.measuring[5].name, Math.floor(Math.random() * 80)+20)
       await this.delay(Math.floor(Math.random() * 600)+100);
       this.changeState(null, this.item_list.measuring[10].name, Math.floor(Math.random() * 80)+20)
-
-      // //IN TO OUT
-      // //schrank 5 (links)
-      // this.changeState(null, "sounditem_1", Math.random(100))
-      // this.changeState(null, this.item_list.lamp[9].name, "ON")
-      // this.changeState(null, this.item_list.measuring[10].name, "100")
-      // this.changeState(null, this.item_list.measuring[11].name, "100")
-      // this.changeState(null, this.item_list.measuring[12].name, "100")
+    },
+    async dramaticEnd() {
+      //IN TO OUT
+      //schrank 5 (links)
+      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, this.item_list.lamp[9].name, "ON")
+      this.changeState(null, this.item_list.measuring[10].name, "100")
+      this.changeState(null, this.item_list.measuring[11].name, "100")
+      this.changeState(null, this.item_list.measuring[12].name, "100")
       
-      // //schrank 5 (rechts)
-      // this.changeState(null, "sounditem_1", Math.random(100))
-      // this.changeState(null, this.item_list.lamp[8].name, "ON")
-      // this.changeState(null, this.item_list.measuring[13].name, "100")
-      // this.changeState(null, this.item_list.measuring[14].name, "100")
-      // this.changeState(null, this.item_list.measuring[15].name, "100")
+      //schrank 5 (rechts)
+      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, this.item_list.lamp[8].name, "ON")
+      this.changeState(null, this.item_list.measuring[13].name, "100")
+      this.changeState(null, this.item_list.measuring[14].name, "100")
+      this.changeState(null, this.item_list.measuring[15].name, "100")
       
-      // await this.delay(1750);
+      await this.delay(1750);
       
-      // //schrank 4
-      // this.changeState(null, "sounditem_1", Math.random(100))
-      // this.changeState(null, this.item_list.measuring[8].name, "100")
-      // this.changeState(null, this.item_list.measuring[9].name, "100")
+      //schrank 4
+      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, this.item_list.measuring[8].name, "100")
+      this.changeState(null, this.item_list.measuring[9].name, "100")
       
-      // await this.delay(1100);
+      await this.delay(1100);
       
-      // //schrank 2
-      // this.changeState(null, "sounditem_1", Math.random(100))
-      // this.changeState(null, this.item_list.measuring[4].name, "100")
-      // this.changeState(null, this.item_list.measuring[5].name, "100")
-      // this.changeState(null, this.item_list.measuring[6].name, "100")
-      // this.changeState(null, this.item_list.measuring[7].name, "100")
-      // //schrank 8
-      // this.changeState(null, this.item_list.measuring[16].name, "100")
-      // this.changeState(null, this.item_list.measuring[17].name, "100")
-      // this.changeState(null, this.item_list.measuring[18].name, "100")
-      // this.changeState(null, this.item_list.measuring[19].name, "100")
+      //schrank 2
+      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, this.item_list.measuring[4].name, "100")
+      this.changeState(null, this.item_list.measuring[5].name, "100")
+      this.changeState(null, this.item_list.measuring[6].name, "100")
+      this.changeState(null, this.item_list.measuring[7].name, "100")
+      //schrank 8
+      this.changeState(null, this.item_list.measuring[16].name, "100")
+      this.changeState(null, this.item_list.measuring[17].name, "100")
+      this.changeState(null, this.item_list.measuring[18].name, "100")
+      this.changeState(null, this.item_list.measuring[19].name, "100")
       
-      // await this.delay(800);
+      await this.delay(800);
       
-      // //schrank 1
-      // this.changeState(null, "sounditem_1", Math.random(100))
-      // this.changeState(null, this.item_list.measuring[0].name, "100")
-      // this.changeState(null, this.item_list.measuring[1].name, "100")
-      // this.changeState(null, this.item_list.measuring[2].name, "100")
-      // this.changeState(null, this.item_list.measuring[3].name, "100")
-      // //schrank 9
-      // this.changeState(null, this.item_list.measuring[20].name, "100")
-      // this.changeState(null, this.item_list.measuring[21].name, "100")
-      // this.changeState(null, this.item_list.measuring[22].name, "100")
-      // this.changeState(null, this.item_list.measuring[23].name, "100")
-
-      // await this.delay(1000);
-      // this.changeState(null, this.item_list.lamp[0].name, "ON")
-      // this.changeState(null, this.item_list.lamp[1].name, "ON")
-      // this.changeState(null, this.item_list.lamp[2].name, "ON")
-      // this.changeState(null, this.item_list.lamp[3].name, "ON")
-      // this.changeState(null, this.item_list.lamp[4].name, "ON")
-      // this.changeState(null, this.item_list.lamp[5].name, "ON")
-      // this.changeState(null, this.item_list.lamp[6].name, "ON")
-      // this.changeState(null, this.item_list.lamp[7].name, "ON")
-      
+      //schrank 1
+      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, this.item_list.measuring[0].name, "100")
+      this.changeState(null, this.item_list.measuring[1].name, "100")
+      this.changeState(null, this.item_list.measuring[2].name, "100")
+      this.changeState(null, this.item_list.measuring[3].name, "100")
+      //schrank 9
+      this.changeState(null, this.item_list.measuring[20].name, "100")
+      this.changeState(null, this.item_list.measuring[21].name, "100")
+      this.changeState(null, this.item_list.measuring[22].name, "100")
+      this.changeState(null, this.item_list.measuring[23].name, "100")
+      //lamps
+      this.changeState(null, this.item_list.lamp[0].name, "ON")
+      this.changeState(null, this.item_list.lamp[1].name, "ON")
+      this.changeState(null, this.item_list.lamp[2].name, "ON")
+      this.changeState(null, this.item_list.lamp[3].name, "ON")
+      this.changeState(null, this.item_list.lamp[4].name, "ON")
+      this.changeState(null, this.item_list.lamp[5].name, "ON")
+      this.changeState(null, this.item_list.lamp[6].name, "ON")
+      this.changeState(null, this.item_list.lamp[7].name, "ON")
+    },
+    initSequence() {
+      this.initiated = true
+      this.turnAll(0)
+      this.changeState(null, this.item_list.singularity[0].name, "ON")
+    },
+    startSequence() {
+      this.started = true
+      this.turnAll(0)
+      clearInterval(this.timer.interval)
+      this.timer.interval = 0
+      // do some magic
     },
     turnAll(state) {
       if (state == 0) {
@@ -354,12 +368,14 @@ export default {
         // reset switches
         this.item_list.buttons.init = false
         this.item_list.buttons.start = false
+        this.initiated = false
         // start the timer
         this.timer.interval = setInterval(() => {
         if (this.timer.time === 0) {
-          this.timer.time = 60
+          this.timer.time = this.timer.reset
           clearInterval(this.timer.interval)
           this.timer.interval = 0
+          this.stopSequence()
         } else {
           this.timer.time--
         }             
@@ -378,13 +394,30 @@ export default {
     },
     doomsdaySwitch() {
       this.doomsdayStatus = !this.doomsdayStatus
+    },
+    async stopSequence() {
+      if (this.doomsdayStatus == true) {
+        this.turnAll(0)
+        await this.delay(5000);
+        this.dramaticEnd()
+      }
+      else {
+        this.turnAll(0)
+      }
     }
   },
   mounted() {
   },
   created(){
     this.interval = setInterval(() =>{
-      this.getButtons()}, 100)
+      this.getButtons()
+      if (this.item_list.buttons.init == true && !this.initiated) {
+        this.initSequence()
+      }
+      if (this.item_list.buttons.start == true && !this.started) {
+        this.startSequence()
+      }
+    }, 200)
   }
 }
 </script>
@@ -425,12 +458,12 @@ export default {
         <div class="button__state" @click="runState2">2</div>
         <div class="button__state" @click="runState3">3</div>
         <div class="button__state" @click="runState4">4</div>
-        <div class="button__state" @click="runState5">5</div>
+        <div class="button__state" @click="dramaticEnd">5</div>
 
         <div class="button__state--security" @click="securitySwitch" 
           :class="{ active: this.item_list.security.status }">Security</div>
         <div class="button__state--doomsday" @click="doomsdaySwitch"
-          :class="{ active: this.doomsdayStatus }">Doomsday {{ this.doomsdayStatus }}</div>
+          :class="{ active: this.doomsdayStatus }">Doomsday</div>
         <div class="button__state--empty">empty</div>
         <div class="button__state--timer">
           <p class="timer__text">
