@@ -159,3 +159,25 @@ p {
   margin: 0px;
   font-size: 10px;
 }
+
+.button__state--security {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  border: thin solid #e8e8e8;
+  background-color: #6e6eff;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.button__state--security.active {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  border: thin solid #e8e8e8;
+  background-color: #FF0000;
+  width: 100%;
+  border-radius: 20px;
+}
