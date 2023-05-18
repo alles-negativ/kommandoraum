@@ -67,6 +67,7 @@ export default {
         reset: 20,
       },
       doomsdayStatus: false,
+      randomStatus: false,
       sounds: new Audio(new URL('./assets/boom.mp3', import.meta.url).href)
     }
   },
@@ -85,7 +86,7 @@ export default {
                 this.item_list.buttons.start = this.item_list.buttons.start
               }
             }
-            else if (this.item_list.buttons.voltage >= 13) {
+            else if (this.item_list.buttons.voltage >= 12) {
               this.item_list.buttons.init = !this.item_list.buttons.init
               if (this.item_list.buttons.init == true) {
                 this.item_list.buttons.start = this.item_list.buttons.start
@@ -104,14 +105,14 @@ export default {
               }
             }
           }
-          else if (value >= 13) {
+          else if (value >= 12) {
             if (this.item_list.buttons.voltage >= 14) {
               this.item_list.buttons.init = !this.item_list.buttons.init
               if (this.item_list.buttons.init == true) {
                 this.item_list.buttons.start = this.item_list.buttons.start
               }
             }
-            else if (this.item_list.buttons.voltage >= 13) {
+            else if (this.item_list.buttons.voltage >= 12) {
               this.item_list.buttons.init = this.item_list.buttons.init
               if (this.item_list.buttons.init == true) {
                 this.item_list.buttons.start = this.item_list.buttons.start
@@ -137,7 +138,7 @@ export default {
                 this.item_list.buttons.start = !this.item_list.buttons.start
               }
             }
-            else if (this.item_list.buttons.voltage >= 13) {
+            else if (this.item_list.buttons.voltage >= 12) {
               this.item_list.buttons.init = !this.item_list.buttons.init
               if (this.item_list.buttons.init == true) {
                 this.item_list.buttons.start = !this.item_list.buttons.start
@@ -163,7 +164,7 @@ export default {
                 this.item_list.buttons.start = !this.item_list.buttons.start
               }
             }
-            else if (this.item_list.buttons.voltage >= 13) {
+            else if (this.item_list.buttons.voltage >= 12) {
               this.item_list.buttons.init = this.item_list.buttons.init
               if (this.item_list.buttons.init == true) {
                 this.item_list.buttons.start = !this.item_list.buttons.start
@@ -270,6 +271,12 @@ export default {
       this.changeState(null, this.item_list.measuring[5].name, Math.floor(Math.random() * 80)+20)
       await this.delay(Math.floor(Math.random() * 600)+100);
       this.changeState(null, this.item_list.measuring[10].name, Math.floor(Math.random() * 80)+20)
+    },
+    async randomMode() {
+      console.log("random")
+      this.item_list.measuring.forEach((element) => {
+        this.changeState(null, element.name, Math.floor(Math.random() * 80)+20)
+      });
     },
     async dramaticEnd() {
       //IN TO OUT
@@ -401,6 +408,9 @@ export default {
     doomsdaySwitch() {
       this.doomsdayStatus = !this.doomsdayStatus
     },
+    randomSwitch() {
+      this.randomStatus = !this.randomStatus
+    },
     async stopSequence() {
       if (this.doomsdayStatus == true) {
         console.log("dramatic end")
@@ -430,6 +440,11 @@ export default {
         this.startSequence()
       }
     }, 500)
+    this.interval = setInterval(() =>{
+      if (this.randomStatus) {
+        this.randomMode()
+      }
+    }, 1000)
   }
 }
 </script>
@@ -470,13 +485,14 @@ export default {
         <div class="button__state" @click="runState2">2</div>
         <div class="button__state" @click="runState3">3</div>
         <div class="button__state" @click="runState4">4</div>
-        <div class="button__state" @click="dramaticEnd">5</div>
+        <div class="button__state" @click="runState5">5</div>
 
         <div class="button__state--security" @click="securitySwitch" 
           :class="{ active: this.item_list.security.status }">Security</div>
         <div class="button__state--doomsday" @click="doomsdaySwitch"
           :class="{ active: this.doomsdayStatus }">Doomsday</div>
-        <div class="button__state--empty">empty</div>
+        <div class="button__state--random" @click="randomSwitch"
+          :class="{ active: this.randomStatus }">Random</div>
         <div class="button__state--timer">
           <p class="timer__text">
             {{ timer.time }}
