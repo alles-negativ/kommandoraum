@@ -53,6 +53,10 @@ export default {
           { name: "schrank_9_Brightness_3", state: 0 },
           { name: "schrank_9_Brightness_4", state: 0 },
         ],
+        buttons: {
+          init: false,
+          start: false,
+        }
       },
       sounds: new Audio(new URL('./assets/boom.mp3', import.meta.url).href)
     }
@@ -65,6 +69,33 @@ export default {
         .then(response => response.json())
         .then(response => this.items = response)
         .then(response => console.log(response))
+        .catch(err => console.error(err));
+    },
+    getButtons() {
+      const options = { method: 'GET'};
+      
+      fetch('http://10.68.254.173:8080/rest/items/buttons_control', options)
+        .then(response => response.json())
+        .then(response => {
+          let value = parseInt(response.state.slice(0, -2))
+          if (value >= 14) {
+            this.item_list.buttons.init = true
+            this.item_list.buttons.start = true
+          }
+          else if (value >= 13) {
+            this.item_list.buttons.init = false
+            this.item_list.buttons.start = true
+          }
+          else if (value >= 8) {
+            this.item_list.buttons.init = true
+            this.item_list.buttons.start = false
+          }
+          else {
+            this.item_list.buttons.init = false
+            this.item_list.buttons.start = false
+          }
+          console.log(this.item_list.buttons)
+        })
         .catch(err => console.error(err));
     },
     changeState($event, itemName, state){
@@ -88,12 +119,9 @@ export default {
       this.changeState(null, this.item_list.measuring[0].name, "50")
       await this.delay(3000);
       this.changeState(null, this.item_list.measuring[1].name, "50")
-
-
     },
-    runState2() {
+    async runState2() {
       console.log("state 2")
-      console.log(null, this.item_list.measuring[0].name)
     },
     turnAll(state) {
       if (state == 0) {
@@ -135,10 +163,10 @@ export default {
   mounted() {
     this.getItems();
   },
-  // created(){
-  //   this.interval = setInterval(() =>{
-  //     this.getItems()}, 1000)
-  // }
+  created(){
+    this.interval = setInterval(() =>{
+      this.getButtons()}, 1000)
+  }
 }
 </script>
 
