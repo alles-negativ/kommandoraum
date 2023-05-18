@@ -248,8 +248,8 @@ export default {
           >
           </div>
         </div>
-        <div class="button__state--switch"></div>
-        <div class="button__state--switch"></div>
+        <div class="button__state--empty">empty</div>
+        <div class="button__state--empty">empty</div>
         <div class="container__onoff">
           <div class="button__small--off" @click="turnAll(0)">OFF</div>
           <div class="button__small--on" @click="turnAll(1)">ON</div>
@@ -266,7 +266,7 @@ export default {
         <div class="button__state--empty">empty</div>
         <div class="button__state--timer">
           <p class="timer__text">
-            <!-- {{ timer.time }} -->
+            {{ timer.time }}
           </p>
         </div>
         <div class="button__state--start" @click="start">Start</div>
