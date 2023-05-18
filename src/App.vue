@@ -51,7 +51,11 @@ export default {
           init: false,
           start: false,
           voltage: 0,
-        }
+        },
+      },
+      timer: {
+        time: 60,
+        interval: 0,
       },
       sounds: new Audio(new URL('./assets/boom.mp3', import.meta.url).href)
     }
@@ -199,6 +203,14 @@ export default {
     start() {
       this.item_list.buttons.init = false
       this.item_list.buttons.start = false
+
+      this.time.interval = setInterval(() => {
+        if (this.timer.time === 0) {
+          clearInterval(this.time.interval)                
+        } else {
+          this.timer.time--
+        }             
+      }, 1000)
     }
   },
   mounted() {
