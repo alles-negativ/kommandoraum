@@ -279,7 +279,7 @@ export default {
           :class="{ active: timer.interval }"
           @click="start"
         >
-          Start {{ timer.interval }}
+          Start
         </div>
     </div>
   </div>

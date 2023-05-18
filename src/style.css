@@ -64,7 +64,7 @@ body {
   border-radius: 20px;
 }
 
-.button__state--start.start {
+.button__state--start.active {
   display: flex;
   justify-content: center;
   align-items: center;
