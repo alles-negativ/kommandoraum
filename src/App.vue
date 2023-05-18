@@ -221,17 +221,18 @@ export default {
         <button @click='changeState($event,item.name,"ON")'>on plug</button>
         <button @click='changeState($event,item.name,"OFF")'>off plug</button>
       </div> -->
-  
-        <div class="button__state--switch">
-          <p class="switch__text">Init</p>
-          <div class="switch__colouring">
-          </div>
-        </div>
         <div class="button__state--switch">
           <p class="switch__text">Start</p>
           <div 
           class="switch__colouring"
-          :class="{ active: item_list.buttons.init }"
+          :class="{ active: item_list.buttons.start }"
+          >
+          </div>
+        </div>
+        <div class="button__state--switch">
+          <p class="switch__text">Init</p>
+          <div 
+            class="switch__colouring" :class="{ active: item_list.buttons.init }"
           >
           </div>
         </div>
@@ -248,11 +249,15 @@ export default {
         <div class="button__state" @click="runState4">4</div>
         <div class="button__state" @click="runState5">5</div>
 
-        <div class="button__state" @click="start">Start</div>
-        <div class="button__state" @click="runState2">2</div>
-        <div class="button__state" @click="runState3">3</div>
-        <div class="button__state" @click="runState4">4</div>
-        <div class="button__state" @click="runState5">5</div>
+        <div class="button__state--empty">empty</div>
+        <div class="button__state--empty">empty</div>
+        <div class="button__state--empty">empty</div>
+        <div class="button__state--timer">
+          <p class="timer__text">
+            <!-- {{ timer.time }} -->
+          </p>
+        </div>
+        <div class="button__state--start" @click="start">Start</div>
     </div>
   </div>
 </template>

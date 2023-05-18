@@ -28,7 +28,7 @@ body {
   grid-template-rows: 1fr 1fr 1fr;
   gap: 1vh;
   width: 100vw;
-  height: 100vh;
+  height: 97vh;
   padding: 12px;
 }
 
@@ -38,7 +38,38 @@ body {
   align-items: center;
   background-color: #e8e8e8;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+}
+
+.button__state--timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: thin solid #e8e8e8;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.timer__text {
+  margin: 0;
+  font-size: 6vw;
+}
+
+.button__state--start {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00FF8D;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.button__state--empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: thin solid #e8e8e8;
+  width: 100%;
   border-radius: 20px;
 }
 
@@ -48,7 +79,6 @@ body {
   align-items: center;
   background-color: #e8e8e8;
   width: 100%;
-  aspect-ratio: 2 / 1;
   border-radius: 20px;
 }
 
@@ -56,7 +86,6 @@ body {
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  aspect-ratio: 1 / 1;
 }
 
 .button__small--on {
@@ -86,7 +115,6 @@ body {
   align-items: center;
   border: thin solid #e8e8e8;
   width: 100%;
-  aspect-ratio: 1 / 1;
   border-radius: 20px;
 }
 
@@ -103,15 +131,15 @@ body {
   height: 50%;
   width: 100%;
   background-color: #e8e8e8;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 18px 18px;
 }
 
-.switch__colouringactive {
+.switch__colouring.active {
   display: block;
   height: 50%;
   width: 100%;
   background-color: #00FF8D;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 18px 18px;
 }
 
 p {
