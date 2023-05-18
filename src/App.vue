@@ -220,7 +220,7 @@ export default {
       
     },
     async runState2() {
-      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, "sounditem_2", Math.random(100))
       this.changeState(null, this.item_list.lamp[0].name, "ON")
       await this.delay(Math.floor(Math.random() * 600)+500);
       this.changeState(null, this.item_list.measuring[2].name, Math.floor(Math.random() * 80)+20)
@@ -233,7 +233,7 @@ export default {
       this.changeState(null, this.item_list.measuring[21].name, Math.floor(Math.random() * 80)+20)
     },
     async runState3() {
-      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, "sounditem_3", Math.random(100))
       this.changeState(null, this.item_list.lamp[7].name, "ON")
       await this.delay(Math.floor(Math.random() * 600)+100);
       this.changeState(null, this.item_list.measuring[18].name, Math.floor(Math.random() * 80)+20)
@@ -396,7 +396,7 @@ export default {
       this.doomsdayStatus = !this.doomsdayStatus
     },
     async stopSequence() {
-      if (this.doomsdayStatus == true) {
+      if (this.dayStatus == true) {
         this.turnAll(0)
         await this.delay(5000);
         this.dramaticEnd()
