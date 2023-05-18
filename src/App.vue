@@ -60,9 +60,10 @@ export default {
         },
       },
       timer: {
-        time: 60,
+        time: 10,
         interval: 0,
       },
+      doomsdayStatus: false,
       sounds: new Audio(new URL('./assets/boom.mp3', import.meta.url).href)
     }
   },
@@ -256,6 +257,9 @@ export default {
         this.changeState(null, this.item_list.security.elements[0].name, "OFF")
       }
     },
+    doomsdaySwitch() {
+      this.doomsdayStatus = !this.doomsdayStatus
+    }
   },
   mounted() {
   },
@@ -306,7 +310,8 @@ export default {
 
         <div class="button__state--security" @click="securitySwitch" 
           :class="{ active: this.item_list.security.status }">Security</div>
-        <div class="button__state--empty">empty</div>
+        <div class="button__state--doomsday" @click="doomsdaySwitch"
+          :class="{ active: this.doomsdayStatus }">Doomsday {{ this.doomsdayStatus }}</div>
         <div class="button__state--empty">empty</div>
         <div class="button__state--timer">
           <p class="timer__text">

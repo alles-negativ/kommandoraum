@@ -181,3 +181,25 @@ p {
   width: 100%;
   border-radius: 20px;
 }
+
+.button__state--doomsday {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  border: thin solid #e8e8e8;
+  background-color: #e8e8e8;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.button__state--doomsday.active {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  border: thin solid #e8e8e8;
+  background-color: #c700ff;
+  width: 100%;
+  border-radius: 20px;
+}
