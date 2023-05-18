@@ -52,11 +52,18 @@ export default {
           start: false,
           voltage: 0,
         },
+        security: {
+          status: false,
+          elements: [
+            { name: "security_lights_Power", state: "OFF" },
+          ],
+        },
       },
       timer: {
-        time: 60,
+        time: 10,
         interval: 0,
       },
+      doomsdayStatus: false,
       sounds: new Audio(new URL('./assets/boom.mp3', import.meta.url).href)
     }
   },
@@ -358,6 +365,19 @@ export default {
         }             
       }, 1000)
       }
+    },
+    securitySwitch() {
+      if (this.item_list.security.status == false) {
+        this.item_list.security.status = true
+        this.changeState(null, this.item_list.security.elements[0].name, "ON")
+      }
+      else {
+        this.item_list.security.status = false
+        this.changeState(null, this.item_list.security.elements[0].name, "OFF")
+      }
+    },
+    doomsdaySwitch() {
+      this.doomsdayStatus = !this.doomsdayStatus
     }
   },
   mounted() {
@@ -407,8 +427,10 @@ export default {
         <div class="button__state" @click="runState4">4</div>
         <div class="button__state" @click="runState5">5</div>
 
-        <div class="button__state--empty">empty</div>
-        <div class="button__state--empty">empty</div>
+        <div class="button__state--security" @click="securitySwitch" 
+          :class="{ active: this.item_list.security.status }">Security</div>
+        <div class="button__state--doomsday" @click="doomsdaySwitch"
+          :class="{ active: this.doomsdayStatus }">Doomsday {{ this.doomsdayStatus }}</div>
         <div class="button__state--empty">empty</div>
         <div class="button__state--timer">
           <p class="timer__text">
