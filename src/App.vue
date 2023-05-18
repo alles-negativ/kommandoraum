@@ -206,7 +206,8 @@ export default {
 
       this.time.interval = setInterval(() => {
         if (this.timer.time === 0) {
-          clearInterval(this.time.interval)                
+          this.timer.time = 60
+          clearInterval(this.time.interval)
         } else {
           this.timer.time--
         }             
