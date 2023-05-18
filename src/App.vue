@@ -193,7 +193,7 @@ export default {
 
       fetch('http://10.68.254.173:8080/rest/items/'+ itemName, options)
         // .then(response => response.json())
-        .then(response => console.log(response))
+        // .then(response => console.log(response))
         .catch(err => console.error(err));
 
     },
@@ -205,7 +205,7 @@ export default {
     async runState1() {
       console.log("state 1")
       this.changeState(null, "sounditem_1", Math.random(100))
-      console.log(null, this.item_list.measuring[0])
+      // console.log(null, this.item_list.measuring[0])
       this.changeState(null, this.item_list.measuring[0].name, Math.floor(Math.random() * 80)+20)
       this.changeState(null, this.item_list.lamp[8].name, "ON")
       await this.delay(Math.floor(Math.random() * 400)+200);
@@ -330,17 +330,22 @@ export default {
       this.changeState(null, this.item_list.lamp[5].name, "ON")
       this.changeState(null, this.item_list.lamp[6].name, "ON")
       this.changeState(null, this.item_list.lamp[7].name, "ON")
+      //security
+      this.changeState(null, this.item_list.security.elements[0].name, "ON")
+      this.item_list.security.status = true
     },
-    initSequence() {
+    async initSequence() {
       this.initiated = true
       this.turnAll(0)
+      await this.delay(1000)
       this.changeState(null, this.item_list.singularity[0].name, "ON")
     },
     startSequence() {
       this.started = true
-      this.turnAll(0)
       clearInterval(this.timer.interval)
       this.timer.interval = 0
+      this.timer.time = this.timer.reset
+      this.stopSequence()
       // do some magic
     },
     turnAll(state) {
@@ -369,15 +374,16 @@ export default {
         this.item_list.buttons.init = false
         this.item_list.buttons.start = false
         this.initiated = false
+        this.started = false
         // start the timer
         this.timer.interval = setInterval(() => {
-        if (this.timer.time === 0) {
-          this.timer.time = this.timer.reset
-          clearInterval(this.timer.interval)
-          this.timer.interval = 0
-          this.stopSequence()
-        } else {
-          this.timer.time--
+          if (this.timer.time === 0) {
+            this.timer.time = this.timer.reset
+            clearInterval(this.timer.interval)
+            this.timer.interval = 0
+            this.stopSequence()
+          } else {
+            this.timer.time--
         }             
       }, 1000)
       }
@@ -397,12 +403,18 @@ export default {
     },
     async stopSequence() {
       if (this.doomsdayStatus == true) {
+        console.log("dramatic end")
         this.turnAll(0)
-        await this.delay(5000);
+        await this.delay(2000);
         this.dramaticEnd()
+      }
+      else if (this.item_list.buttons.start) {
+        this.turnAll(0)
+        console.log("yes end")
       }
       else {
         this.turnAll(0)
+        console.log("no end")
       }
     }
   },
@@ -417,7 +429,7 @@ export default {
       if (this.item_list.buttons.start == true && !this.started) {
         this.startSequence()
       }
-    }, 200)
+    }, 500)
   }
 }
 </script>
