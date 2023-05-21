@@ -3,10 +3,10 @@
 export default {
   data() {
     return {
+      // OFF, PLAY, INIT, END, DOOM
+      state: "OFF",
       items: 0,
       interval: null,
-      initiated: false,
-      started: false,
       stateStatus: [false, false, false, false, false],
       item_list: {
         lamp: [
@@ -58,18 +58,17 @@ export default {
         security: {
           status: false,
           elements: [
-            { name: "security_lights_Power", state: "OFF" },
+            { name: "security_lights", state: "OFF" },
           ],
         },
       },
       timer: {
-        time: 60,
+        time: 10,
         interval: 0,
-        reset: 60,
+        reset: 10,
       },
       doomsdayStatus: false,
       randomStatus: false,
-      sounds: new Audio(new URL('./assets/boom.mp3', import.meta.url).href)
     }
   },
   methods: {
@@ -81,7 +80,7 @@ export default {
         .then(response => {
           // let value = parseInt(response.state.slice(0, -2)
           let value = parseInt(response.state)
-          console.log(value)
+          // console.log(value)
           if (value >= 4000) {
             if (this.item_list.buttons.voltage >= 4000) {
               this.item_list.buttons.init = this.item_list.buttons.init
@@ -95,7 +94,7 @@ export default {
                 this.item_list.buttons.start = this.item_list.buttons.start
               }
             }
-            else if (this.item_list.buttons.voltage >= 1900) {
+            else if (this.item_list.buttons.voltage >= 1850) {
               this.item_list.buttons.init = this.item_list.buttons.init
               if (this.item_list.buttons.init == true) {
                 this.item_list.buttons.start = !this.item_list.buttons.start
@@ -121,7 +120,7 @@ export default {
                 this.item_list.buttons.start = this.item_list.buttons.start
               }
             }
-            else if (this.item_list.buttons.voltage >= 1900) {
+            else if (this.item_list.buttons.voltage >= 1850) {
               this.item_list.buttons.init = !this.item_list.buttons.init
               if (this.item_list.buttons.init == true) {
                 this.item_list.buttons.start = !this.item_list.buttons.start
@@ -134,7 +133,7 @@ export default {
               }
             }
           }
-          else if (value >= 1900) {
+          else if (value >= 1850) {
             if (this.item_list.buttons.voltage >= 4000) {
               this.item_list.buttons.init = this.item_list.buttons.init
               if (this.item_list.buttons.init == true) {
@@ -147,7 +146,7 @@ export default {
                 this.item_list.buttons.start = !this.item_list.buttons.start
               }
             }
-            else if (this.item_list.buttons.voltage >= 1900) {
+            else if (this.item_list.buttons.voltage >= 1850) {
               this.item_list.buttons.init = this.item_list.buttons.init
               if (this.item_list.buttons.init == true) {
                 this.item_list.buttons.start = this.item_list.buttons.start
@@ -173,7 +172,7 @@ export default {
                 this.item_list.buttons.start = !this.item_list.buttons.start
               }
             }
-            else if (this.item_list.buttons.voltage >= 1900) {
+            else if (this.item_list.buttons.voltage >= 1850) {
               this.item_list.buttons.init = !this.item_list.buttons.init
               if (this.item_list.buttons.init == true) {
                 this.item_list.buttons.start = this.item_list.buttons.start
@@ -372,16 +371,28 @@ export default {
       this.randomStatus = true
     },
     async initSequence() {
-      this.initiated = true
-      this.turnAll(0)
-      await this.delay(1000)
-      this.changeState(null, this.item_list.singularity[0].name, "ON")
+      if (this.state == "INIT") {
+        this.state = "PLAY"
+        this.turnAll(0)
+        await this.delay(500)
+        this.changeState(null, this.item_list.singularity[0].name, "OFF")
+      }
+      else {
+        this.state = "INIT"
+        this.turnAll(0)
+        this.changeState(null, "sounditem_6", Math.random(100))
+        await this.delay(500)
+        this.changeState(null, this.item_list.singularity[0].name, "ON")
+      }
     },
     startSequence() {
-      this.started = true
+      this.state = "END"
       clearInterval(this.timer.interval)
       this.timer.interval = 0
       this.timer.time = this.timer.reset
+      this.item_list.buttons.init = false
+      this.item_list.buttons.start = false
+      this.stateStatus = [false, false, false, false, false]
       this.stopSequence()
       // do some magic
     },
@@ -408,10 +419,9 @@ export default {
     start() {
       if (this.timer.interval == 0) {
         // reset switches
+        this.state = "PLAY"
         this.item_list.buttons.init = false
         this.item_list.buttons.start = false
-        this.initiated = false
-        this.started = false
         this.stateStatus = [false, false, false, false, false]
         // start the timer
         this.timer.interval = setInterval(() => {
@@ -419,6 +429,9 @@ export default {
             this.timer.time = this.timer.reset
             clearInterval(this.timer.interval)
             this.timer.interval = 0
+            this.state = "OFF"
+            this.item_list.buttons.init = false
+            this.item_list.buttons.start = false
             this.stopSequence()
           } else {
             this.timer.time--
@@ -440,6 +453,9 @@ export default {
       this.doomsdayStatus = !this.doomsdayStatus
     },
     randomSwitch() {
+      if (this.state == "OFF") {
+        this.item_list.buttons.init = !this.item_list.buttons.init
+      }
       this.randomStatus = !this.randomStatus
     },
     async stopSequence() {
@@ -449,12 +465,16 @@ export default {
         await this.delay(2000);
         this.dramaticEnd()
       }
-      else if (this.item_list.buttons.start) {
+      else if (this.state == "END") {
+        this.state = "OFF"
         this.turnAll(0)
+        this.changeState(null, "voice_" + (Math.floor(Math.random() * 5) + 2), Math.random(100))
         console.log("yes end")
       }
       else {
+        this.state = "OFF"
         this.turnAll(0)
+        this.changeState(null, "voice_1", Math.random(100))
         console.log("no end")
       }
     }
@@ -464,11 +484,28 @@ export default {
   created(){
     this.interval = setInterval(() =>{
       this.getButtons()
-      if (this.item_list.buttons.init == true && !this.initiated) {
-        this.initSequence()
+      console.log(this.state)
+      if (this.state == "OFF") {
+        if (this.item_list.buttons.init && !this.randomStatus) {
+          this.randomStatus = true
+        }
+        else if (!this.item_list.buttons.init && this.randomStatus) {
+          this.randomStatus = false
+          this.turnAll(0)
+        }
       }
-      if (this.item_list.buttons.start == true && !this.started) {
-        this.startSequence()
+      else if (this.state == "PLAY") {
+        if (this.item_list.buttons.init == true) {
+          this.initSequence()
+        }
+      }
+      else if (this.state == "INIT") {
+        if (this.item_list.buttons.init == false) {
+          this.initSequence()
+        }
+        else if (this.item_list.buttons.start == true) {
+          this.startSequence()
+        }
       }
     }, 250)
     this.interval = setInterval(() =>{
