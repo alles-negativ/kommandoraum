@@ -281,9 +281,20 @@ export default {
     },
     async randomMode() {
       console.log("random")
+      var onOff = [
+        "ON",
+        "OFF"
+      ];
       let randomItems = this.item_list.measuring.sort(() => .5 - Math.random()).slice(0, 24);
+      let randomLights = this.item_list.lamp.sort(() => .5 - Math.random()).slice(0, 7);
+      console.log(this.item_list.lamp);
       randomItems.forEach((element) => {
         this.changeState(null, element.name, this.scale(Math.floor(Math.random() * 200 - 100)))
+      });
+      randomLights.forEach((element) => {
+        var randomLight = Math.floor(Math.random()*onOff.length)
+        this.changeState(null, element.name, onOff[randomLight])
+        console.log();
       });
     },
     scale (number) {
