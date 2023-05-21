@@ -298,14 +298,14 @@ export default {
     async dramaticEnd() {
       //IN TO OUT
       //schrank 5 (links)
-      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, "sounditem_7", Math.random(100))
       this.changeState(null, this.item_list.lamp[9].name, "ON")
       this.changeState(null, this.item_list.measuring[10].name, "100")
       this.changeState(null, this.item_list.measuring[11].name, "100")
       this.changeState(null, this.item_list.measuring[12].name, "100")
       
       //schrank 5 (rechts)
-      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, "sounditem_7", Math.random(100))
       this.changeState(null, this.item_list.lamp[8].name, "ON")
       this.changeState(null, this.item_list.measuring[13].name, "100")
       this.changeState(null, this.item_list.measuring[14].name, "100")
@@ -314,14 +314,14 @@ export default {
       await this.delay(1750);
       
       //schrank 4
-      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, "sounditem_7", Math.random(100))
       this.changeState(null, this.item_list.measuring[8].name, "100")
       this.changeState(null, this.item_list.measuring[9].name, "100")
       
       await this.delay(1100);
       
       //schrank 2
-      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, "sounditem_7", Math.random(100))
       this.changeState(null, this.item_list.measuring[4].name, "100")
       this.changeState(null, this.item_list.measuring[5].name, "100")
       this.changeState(null, this.item_list.measuring[6].name, "100")
@@ -335,7 +335,7 @@ export default {
       await this.delay(800);
       
       //schrank 1
-      this.changeState(null, "sounditem_1", Math.random(100))
+      this.changeState(null, "sounditem_7", Math.random(100))
       this.changeState(null, this.item_list.measuring[0].name, "100")
       this.changeState(null, this.item_list.measuring[1].name, "100")
       this.changeState(null, this.item_list.measuring[2].name, "100")
