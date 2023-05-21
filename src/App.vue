@@ -63,12 +63,14 @@ export default {
         },
       },
       timer: {
-        time: 10,
+        time: 60,
         interval: 0,
-        reset: 10,
+        reset: 60,
       },
       doomsdayStatus: false,
       randomStatus: false,
+      deskStatus: false,
+      singularityStatus: false,
     }
   },
   methods: {
@@ -286,14 +288,14 @@ export default {
       ];
       let randomItems = this.item_list.measuring.sort(() => .5 - Math.random()).slice(0, 24);
       let randomLights = this.item_list.lamp.sort(() => .5 - Math.random()).slice(0, 7);
-      console.log(this.item_list.lamp);
+      // console.log(this.item_list.lamp);
       randomItems.forEach((element) => {
         this.changeState(null, element.name, this.scale(Math.floor(Math.random() * 200 - 100)))
       });
       randomLights.forEach((element) => {
         var randomLight = Math.floor(Math.random()*onOff.length)
         this.changeState(null, element.name, onOff[randomLight])
-        console.log();
+        // console.log();
       });
     },
     scale (number) {
@@ -366,8 +368,10 @@ export default {
       this.changeState(null, this.item_list.lamp[7].name, "ON")
       //security
       this.changeState(null, this.item_list.security.elements[0].name, "ON")
+      this.changeState(null, "desk_lamp_Power", "OFF")
       this.item_list.security.status = true
-      this.randomMode()
+      // this.randomMode()
+      this.item_list.buttons.init = true
       this.randomStatus = true
     },
     async initSequence() {
@@ -379,8 +383,8 @@ export default {
       }
       else {
         this.state = "INIT"
+        this.changeState(null, "sounditem_2", Math.random(100))
         this.turnAll(0)
-        this.changeState(null, "sounditem_6", Math.random(100))
         await this.delay(500)
         this.changeState(null, this.item_list.singularity[0].name, "ON")
       }
@@ -450,7 +454,32 @@ export default {
       }
     },
     doomsdaySwitch() {
-      this.doomsdayStatus = !this.doomsdayStatus
+      if (this.state == "OFF") {
+        this.dramaticEnd()
+      }
+      else {
+        this.doomsdayStatus = !this.doomsdayStatus
+      }
+    },
+    deskSwitch() {
+      if (this.deskStatus == false) {
+        this.deskStatus = true
+        this.changeState(null, "desk_lamp_Power", "ON")
+      }
+      else {
+        this.deskStatus = false
+        this.changeState(null, "desk_lamp_Power", "OFF")
+      }
+    },
+    singularitySwitch() {
+      if (this.deskStatus == false) {
+        this.deskStatus = true
+        this.changeState(null, "desk_lamp_Power", "ON")
+      }
+      else {
+        this.deskStatus = false
+        this.changeState(null, "desk_lamp_Power", "OFF")
+      }
     },
     randomSwitch() {
       if (this.state == "OFF") {
@@ -462,7 +491,7 @@ export default {
       if (this.doomsdayStatus == true) {
         console.log("dramatic end")
         this.turnAll(0)
-        await this.delay(2000);
+        await this.delay(5000);
         this.dramaticEnd()
       }
       else if (this.state == "END") {
@@ -542,7 +571,8 @@ export default {
           >
           </div>
         </div>
-        <div class="button__state--empty">empty</div>
+        <div class="button__state--security" @click="deskSwitch" 
+          :class="{ active: this.deskStatus }">Desklamp</div>
         <div class="button__state--empty">empty</div>
         <div class="container__onoff">
           <div class="button__small--off" @click="turnAll(0)">OFF</div>
