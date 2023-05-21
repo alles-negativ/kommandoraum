@@ -368,7 +368,6 @@ export default {
       this.changeState(null, this.item_list.lamp[7].name, "ON")
       //security
       this.changeState(null, this.item_list.security.elements[0].name, "ON")
-      this.changeState(null, "desk_lamp_Power", "OFF")
       this.item_list.security.status = true
       // this.randomMode()
       this.item_list.buttons.init = true
@@ -455,6 +454,8 @@ export default {
     },
     doomsdaySwitch() {
       if (this.state == "OFF") {
+        this.turnAll(0)
+        this.changeState(null, "desk_lamp_Power", "OFF")
         this.dramaticEnd()
       }
       else {
@@ -491,7 +492,8 @@ export default {
       if (this.doomsdayStatus == true) {
         console.log("dramatic end")
         this.turnAll(0)
-        await this.delay(5000);
+        this.changeState(null, "desk_lamp_Power", "OFF")
+        await this.delay(7000);
         this.dramaticEnd()
       }
       else if (this.state == "END") {
