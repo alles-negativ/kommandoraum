@@ -457,11 +457,13 @@ export default {
       else if (this.state == "END") {
         this.state = "OFF"
         this.turnAll(0)
+        this.changeState(null, "voice_" + (Math.floor(Math.random() * 5) + 2), Math.random(100))
         console.log("yes end")
       }
       else {
         this.state = "OFF"
         this.turnAll(0)
+        this.changeState(null, "voice_1", Math.random(100))
         console.log("no end")
       }
     }
