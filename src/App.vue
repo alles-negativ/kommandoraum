@@ -426,6 +426,8 @@ export default {
         this.item_list.buttons.init = false
         this.item_list.buttons.start = false
         this.stateStatus = [false, false, false, false, false]
+        // start sound for sequence
+        this.changeState(null, "sounditem_start_sound", Math.random(100))
         // start the timer
         this.timer.interval = setInterval(() => {
           if (this.timer.time === 0) {
@@ -437,6 +439,21 @@ export default {
             this.item_list.buttons.start = false
             this.stopSequence()
           } else {
+            if (this.timer.time == 30) {
+              this.changeState(null, "sounditem_30_seconds", Math.random(100))
+            }
+            if (this.timer.time == 10) {
+              this.changeState(null, "sounditem_10_seconds", Math.random(100))
+            }
+            if (this.timer.time == 4) {
+              this.changeState(null, "sounditem_3_seconds", Math.random(100))
+            }
+            if (this.timer.time == 3) {
+              this.changeState(null, "sounditem_2_seconds", Math.random(100))
+            }
+            if (this.timer.time == 2) {
+              this.changeState(null, "sounditem_1_second", Math.random(100))
+            }
             this.timer.time--
         }             
       }, 1000)
@@ -499,13 +516,14 @@ export default {
       else if (this.state == "END") {
         this.state = "OFF"
         this.turnAll(0)
-        this.changeState(null, "voice_" + (Math.floor(Math.random() * 5) + 2), Math.random(100))
+        // this.changeState(null, "voice_" + (Math.floor(Math.random() * 5) + 2), Math.random(100))
+        this.changeState(null, "voice_0", Math.random(100))
         console.log("yes end")
       }
       else {
         this.state = "OFF"
         this.turnAll(0)
-        this.changeState(null, "voice_1", Math.random(100))
+        this.changeState(null, "voice_0", Math.random(100))
         console.log("no end")
       }
     }
